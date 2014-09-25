@@ -1,7 +1,3 @@
-// NOTE: This is an invalid swagger spec. 
-// It demonstrates the set of members which are currently used in swagger-server and thus omits
-// members which are part of the swagger specification which are not implemented in swagger-server
-
 {
     "swagger": "2",
     "basePath": "/pet",
@@ -21,7 +17,16 @@
             }
         },
         "/{petId}": {
-            "get": {
+	    "get" : {
+			"operationId":"getPetById",
+			"parameters": [
+				{
+					"name": "petId",
+					"in": "path"
+				}
+			]
+		},
+            "post": {
                 "operationId": "changePetName",
                 "parameters": [
                     {

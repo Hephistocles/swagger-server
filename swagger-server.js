@@ -5,6 +5,7 @@ var methods = require('methods');
 // var http = require('http');
 var bodyParser = require('body-parser');
 var express = require('express');
+var fs = require('fs');
 
 /**
  * return an array of function parameters names, so we can match up to the spec
@@ -191,7 +192,7 @@ module.exports = function(app, spec, apiImpl) {
 	// interpret 'spec' as either an object itself, or as the location of the json spec on filesystem
 	if (typeof spec === "string") {
 		console.log("Reading spec from file: " + spec);
-		spec = JSON.parse(fs.readFileSync(specLocation, 'utf8'));
+		spec = JSON.parse(fs.readFileSync(spec, 'utf8'));
 	} else if (typeof spec === "object") {
 		console.log("Treating the given spec as the object itself")
 	} else {
