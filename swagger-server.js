@@ -7,7 +7,12 @@ var fs = require('fs');
 var bodyParser = require('body-parser');
 var express = require('express');
 
-// return an array of function parameters names, so we can match up to the spec
+ /**
+  * return an array of function parameters names, so we can match up to the spec
+  * Stolen from http://www.2ality.com/2011/01/reflection-and-meta-programming-in.html
+  * @param {function} fun The function to look at
+  * @returns {[string]} An array of parameter names
+  */
 function argumentNames(fun) {
 	var names = fun.toString().match(/^[\s\(]*function[^(]*\(([^)]*)\)/)[1]
 		.replace(/\/\/.*?[\r\n]|\/\*(?:.|[\r\n])*?\*\//g, '')
@@ -15,7 +20,14 @@ function argumentNames(fun) {
 	return names.length === 1 && !names[0] ? [] : names;
 }
 
-
+/**
+ * Converts a string value to the type specified by parameter.type
+ * If parameter.type === "array", parameter.collectionFormat is examined 
+ * and subitems are parsed with parameter.items as the parameter.
+ * @param  {string} value The value to be parsed
+ * @param  {Swagger Parameter Object (https://github.com/wordnik/swagger-spec/blob/master/versions/2.0.md#parameterObject)} parameter The parameter to parse with respect to
+ * @return {*} A correctly-typed version of value
+ */
 function parseAs(value, parameter) {
 	switch (parameter.type) {
 		case "string":
@@ -43,6 +55,7 @@ function parseAs(value, parameter) {
 					value = value.split(",");
 					break;
 			}
+			// further parse array items
 			return value.map(function(item) {
 				parseAs(item, parameter.items);
 			});
@@ -54,6 +67,14 @@ function parseAs(value, parameter) {
 	}
 }
 
+/**
+ * Obtain the value from the request, by looking in the places suggested by parameter.in,
+ *  parsing as appropriate
+ * @param  {Express Request} req
+ * @param  {Swagger Parameter Object} parameter
+ * @return {*} A value of type specified by parameter.type
+ * @see parseAs
+ */
 function getValue(req, parameter) {
 	var value;
 	switch (parameter.in) {
@@ -101,6 +122,13 @@ function getValue(req, parameter) {
 	return parseAs(value, parameter);
 }
 
+/**
+ * [createRoutingMethod description]
+ * @param  {[type]} expressRoute
+ * @param  {[type]} specPath
+ * @param  {[type]} apiImpl
+ * @return {[type]}
+ */
 function createRoutingMethod(expressRoute, specPath, apiImpl) {
 	console.log(specPath);
 	var pathParams = specPath.parameters;
