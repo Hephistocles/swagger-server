@@ -12,18 +12,10 @@ var apiImpl = {
 	createPet: function(pet) {
 		return sg.result(200, "Success!");
 	},
-	updatePet: function(pet) {
+	changePetName: function(petId, petName) {
 		return sg.result(200, {
-			"success": "true",
-			"petname": pet.name,
-			"pet": pet
-		});
-	},
-	getPetById: function(petId) {
-		return sg.result(200, {
-			name: "Hilary",
-			"myid": "pet" + petId + ".1",
-			"test": "true"
+			"id": "pet_" + petId,
+			"nameChangedTo": petName
 		});
 	}
 };
