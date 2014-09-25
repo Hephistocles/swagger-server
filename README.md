@@ -1,7 +1,7 @@
 swagger-server
 ==============
 
-A node package which creates a RESTful express server stub from a swagger specification file. 
+A node package which creates a RESTful express server stub from a swagger specification file [such as this one](https://github.com/wordnik/swagger-spec/blob/master/versions/2.0.md). 
 The API creator can now define the API formally via a swagger specification file, and move 
 straight on to API implementation without worrying about the details of the REST server itself.
 
