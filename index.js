@@ -27,7 +27,7 @@ var apiImpl = {
 
 };
 
-sg(app, 'spec.json', apiImpl);
+sg(app, 'swagger.json', apiImpl);
 app.listen(3002);
 
 console.log('Magic happening on port 3002');
