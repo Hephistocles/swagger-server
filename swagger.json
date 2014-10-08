@@ -1,9 +1,5 @@
 {
-    "swagger": "2",
-    "info": {
-        "version": "1.0.0",
-        "title": "PetStore on Heroku"
-    },
+    "swagger": 2,
     "host": "petstore-api.herokuapp.com",
     "basePath": "/pet",
     "paths": {

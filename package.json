@@ -1,5 +1,5 @@
 {
-  "name": "swagger-servergen",
+  "name": "swagger-server",
   "version": "0.0.0",
   "description": "Test server generator ",
   "main": "index.js",

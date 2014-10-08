@@ -28,7 +28,7 @@ var apiImpl = {
 	}
 };
 
-sg(app, 'spec.json', apiImpl);
+sg(app, 'swagger.json', apiImpl);
 app.listen(8181);
 
 console.log('Magic happening on port 8181');
