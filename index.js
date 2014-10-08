@@ -1,7 +1,7 @@
 /*jshint unused:strict, undef:true, bitwise:true, eqeqeq:true, latedef:true, eqnull:true */
 /* global require, console */
 
-var sg = require("./swagger-servergen");
+var sg = require("./swagger-server");
 var express = require("express");
 var app = express();
 
@@ -12,23 +12,22 @@ var apiImpl = {
 	createPet: function(pet) {
 		return sg.result(200, "Success!");
 	},
-	updatePet: function(pet) {
+	changePetName: function(petId, petName) {
 		return sg.result(200, {
-			"success": "true",
-			"petname": pet.name,
-			"pet": pet
+			"id": "pet_" + petId,
+			"nameChangedTo": petName
 		});
 	},
 	getPetById: function(petId) {
 		return sg.result(200, {
-			name: "Hilary",
-			"myid": "pet" + petId + ".1",
-			"test": "true"
+			"id": "pet_" + petId,
+			"name": "Fido"
 		});
-	}
+	},
+
 };
 
-sg(app, 'swagger.json', apiImpl);
-app.listen(8181);
+sg(app, 'spec.json', apiImpl);
+app.listen(3002);
 
-console.log('Magic happening on port 8181');
+console.log('Magic happening on port 3002');
